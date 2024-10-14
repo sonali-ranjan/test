@@ -1,0 +1,32 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8",
+    "@sap/cds-common-content": "^2.1.0",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.6",
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "UI5-1.129"
+  },
+  "cds": {
+    "requires": {
+      "auth": "mocked"
+    }
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-books": "cds watch --open books/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-employee": "cds watch --open employee/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/books",
+    "app/employee"
+  ]
+}

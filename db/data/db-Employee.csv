@@ -1,0 +1,6 @@
+ID,empNum,empName,emailAddress,country_code,designation,createdAt,createdBy,modifiedAt,modifiedBy
+70f1f17f-ac37-4bd0-b799-308cf4a30bfb,MSG-1001,Amit Sharma,amit.sharma@msg-global.com,IN,Software Engineer,2024-01-15T09:30:00Z, ,, ,
+1382247d-89d2-4150-9b26-cd3763e79c4c,MSG-1002,Sophie Müller,sophie.mueller@msg-global.com,DE,Project Manager,2024-02-10T10:15:00Z, ,, ,
+04107616-dee2-4b1c-a036-a8f75054d84d,MSG-1003,Anjali Patel,anjali.patel@msg-global.com,IN,Data Analyst,2024-03-05T11:45:00Z, ,, ,
+8b304461-f4fb-4b4d-ac43-0468b3aaf67b,MSG-1004,Thomas Schmidt,thomas.schmidt@msg-global.com,DE,UX Designer,2024-04-20T14:00:00Z, ,, ,
+aa112fc4-ffa6-4cff-bf95-7027ee64bf62,MSG-1005,Neha Gupta,neha.gupta@msg-global.com,IN,HR Specialist,2024-05-15T08:30:00Z, ,, ,

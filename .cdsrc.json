@@ -1,0 +1,28 @@
+    {
+        "requires": {
+            "auth": {
+                "users": {
+                    "msgIndia@test.com": {
+                        "password": "initial",
+                        "ID": "msgIndia@test.com",
+                        "roles": [
+                            "msgIndia"
+                        ],
+                        "attr": {
+                            "country": "IN"
+                        }
+                    },
+                    "msgGermany@test.com": {
+                        "password": "initial",
+                        "ID": "msgGermany@test.com",
+                        "roles": [
+                            "msgGermany"
+                        ],
+                        "attr": {
+                            "country": "DE"
+                        }
+                    }
+                }
+            }
+        }
+    }
