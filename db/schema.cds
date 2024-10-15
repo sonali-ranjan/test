@@ -14,7 +14,7 @@ entity Employee @(restrict: [
   },
   {
     grant: '*',
-    to   : 'msgIndia',
+    to   : 'msgGermany',
     where: 'country_code = $user.country'
   }
 ]) : cuid, managed {
