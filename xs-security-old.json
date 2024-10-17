@@ -1,0 +1,48 @@
+{
+  "xsappname": "test",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.msgIndia",
+      "description": "msgIndia"
+    },
+    {
+      "name": "$XSAPPNAME.msgGermany",
+      "description": "msgGermany"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "country",
+      "description": "country",
+      "valueType": "s",
+      "valueRequired": false
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "msgIndia",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.msgIndia"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "msgGermany",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.msgGermany"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "userattributes",
+      "description": "generated",
+      "default-role-name": "Attributes of a User",
+      "scope-references": [],
+      "attribute-references": [
+        "country"
+      ]
+    }
+  ]
+}

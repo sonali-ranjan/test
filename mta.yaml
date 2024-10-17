@@ -1,0 +1,135 @@
+_schema-version: 3.3.0
+ID: test
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: test-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: test-db
+      - name: test-auth
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-http-endpoint: /health
+      readiness-health-check-type: http
+    build-parameters:
+      builder: npm
+  - name: test-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: test-db
+    parameters:
+      buildpack: nodejs_buildpack
+  # -------------------- APPROUTER -----------------------------
+  - name: employee-approuter
+    # ------------------------------------------------------------
+    type: approuter.nodejs
+    path: app/approuter
+    requires:
+      - name: test-auth
+      - name: test-destination-service
+      - name: test_html_repo_host
+      - name: test-db
+      - name: srv-api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv-binding
+          url: "~{srv-url}"
+    parameters:
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
+
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+      supported-platforms:
+        []
+  # -------------------- UI -----------------------------------
+  - name: employee
+    # ------------------------------------------------------------
+    type: html5
+    path: app/employee
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+      supported-platforms:
+        []
+
+  - name: test-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: test-destination-service
+        parameters:
+          content-target: true
+      - name: test_html_repo_host
+        parameters:
+          service-key:
+            name: test_html_repo_host-key
+      - name: test-auth
+        parameters:
+          service-key:
+            name: test-auth-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: employee_test_html_repo_host
+              ServiceInstanceName: test-html5-app-host-service
+              ServiceKeyName: test_html_repo_host-key
+              sap.cloud.service: employee
+            - Authentication: OAuth2UserTokenExchange
+              Name: employee_test_auth
+              ServiceInstanceName: test-auth
+              ServiceKeyName: test-auth-key
+              sap.cloud.service: employee
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+resources:
+  - name: test-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: test-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: test-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+  - name: test-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+      service: destination
+      service-name: test-destination-service
+      service-plan: lite
+  - name: test_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: test-html5-app-host-service
+      service-plan: app-host
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

@@ -1,4 +1,6 @@
 using CatalogService as service from '../../srv/cat-service';
+using from '@sap/cds/common';
+
 annotate service.Employee with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -86,4 +88,8 @@ annotate service.Employee with @(
         },
     ],
 );
+
+annotate service.Countries with {
+    descr @Common.FieldControl : #ReadOnly
+};
 
