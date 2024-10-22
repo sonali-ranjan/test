@@ -1,0 +1,40 @@
+{
+  "xsappname": "test",
+  "description": "test",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.testUser",
+      "description": "Test user country"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "country",
+      "description": "country",
+      "valueType": "s",
+      "valueRequired": true
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "RT-testUser",
+      "description": "generated",
+      "default-role-name": "Display employee details from your assigned country",
+      "scope-references": [
+        "$XSAPPNAME.testUser"
+      ],
+      "attribute-references": [
+        {
+          "name": "country"
+        }
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://oauth.pstmn.io/v1/callback"
+    ],
+    "token-validity": 60
+  }
+}

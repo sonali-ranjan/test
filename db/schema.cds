@@ -2,24 +2,12 @@ namespace db;
 
 using {
   cuid,
-  Country, managed
+  Country,
+  managed
 } from '@sap/cds/common';
 
 
-entity Employee @(restrict: [
-  {
-    grant: '*',
-    to   : 'msgIndia',
-    where: 'country_code = $user.country'
-  },
-  {
-    grant: '*',
-    to   : 'msgGermany',
-    where: 'country_code = $user.country'
-  }
-]) : cuid, managed {
-
-
+entity Employee : cuid, managed {
   empNum       : String;
   empName      : String;
   emailAddress : String;

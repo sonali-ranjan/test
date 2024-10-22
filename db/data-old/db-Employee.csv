@@ -1,0 +1,6 @@
+ID,empNum,empName,emailAddress,country_code,designation,createdAt,createdBy,modifiedAt,modifiedBy
+100,MSG-1001,Amit Sharma,amit.sharma@msg-global.com,IN,Software Engineer,2024-01-15T09:30:00Z, ,, ,
+200,MSG-1002,Sophie Müller,sophie.mueller@msg-global.com,DE,Project Manager,2024-02-10T10:15:00Z, ,, ,
+300,MSG-1003,Anjali Patel,anjali.patel@msg-global.com,IN,Data Analyst,2024-03-05T11:45:00Z, ,, ,
+400,MSG-1004,Thomas Schmidt,thomas.schmidt@msg-global.com,DE,UX Designer,2024-04-20T14:00:00Z, ,, ,
+500,MSG-1005,Neha Gupta,neha.gupta@msg-global.com,IN,HR Specialist,2024-05-15T08:30:00Z, ,, ,

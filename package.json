@@ -6,27 +6,57 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/hana": "^1",
     "@sap/cds": "^8",
     "@sap/cds-common-content": "^2.1.0",
+    "@sap/xsenv": "^5.3.0",
+    "@sap/xssec": "^4",
     "express": "^4"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.6",
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
     "@sap/ux-specification": "UI5-1.129"
   },
   "cds": {
     "requires": {
-      "auth": "mocked"
+      "auth": {
+        "[production]": {
+          "kind": "xsuaa"
+        },
+        "[development]": {
+          "kind": "mocked"
+        }
+      },
+      "db": {
+        "[development]": {
+          "kind": "sqlite",
+          "impl": "@cap-js/sqlite",
+          "credentials": {
+            "url": "memory"
+          }
+        },
+        "[production]": {
+          "kind": "hana",
+          "impl": "@cap-js/hana",
+          "deploy-format": "hdbtable"
+        }
+      }
+    },
+    "sql": {
+      "native_hana_associations": false
     }
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-books": "cds watch --open books/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-employee": "cds watch --open employee/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-employee": "cds watch --open employee/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy test --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "publish": "rimraf resources mta_archives && mbt build --mtar archive && cf deploy mta_archives/archive.mtar --retries 1 -f"
   },
   "sapux": [
-    "app/books",
     "app/employee"
   ]
 }
